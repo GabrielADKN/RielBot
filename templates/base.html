@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} Home {% endblock %}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/popper"></script>
+    <script src="https://unpkg.com/bootstrap"></script>
+
+    <link rel="stylesheet" href="/static/stylesheets/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+    integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/static/images/logo_purple.png">
+
+    {% block head %} {% endblock %}
+</head>
+
+<body class="{% block body_class %}h-100{% endblock %}">
+    <nav class="navbar navbar-expand">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand">
+                    <img src="/static/images/logo_main.png" alt="logo">
+                    <span>RielBot</span>
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if not g.user %}
+                <li><a href="/signup">Sign up</a></li>
+                <li><a href="/login">Log in</a></li>
+                {% else %}
+                <li>
+                    <a href="/users/{{ g.user.id }}">
+                        <img src="{{ g.user.img_url }}" alt="{{ g.user.username }}">
+                    </a>
+                </li>
+                <li><a href="/logout">Log out</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid h-100">
+        {% for category, message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+
+        <div class="row h-100">
+            <div class="col-3 order-first">
+                <script>
+                    (function (d, s, id) {
+                        if (d.getElementById(id)) {
+                            if (window.__TOMORROW__) {
+                                window.__TOMORROW__.renderWidget();
+                            }
+                            return;
+                        }
+                        const fjs = d.getElementsByTagName(s)[0];
+                        const js = d.createElement(s);
+                        js.id = id;
+                        js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+                        fjs.parentNode.insertBefore(js, fjs);
+                    })(document, 'script', 'tomorrow-sdk');
+                </script>
+                <div class="row">
+                    <div class="tomorrow .container-fluid-xs" data-location-id="" data-language="EN"
+                        data-unit-system="IMPERIAL" data-skin="light" data-widget-type="upcoming"
+                        style="padding-bottom:22px;position:relative;">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6 h-100">
+                {% block content %}
+                {% endblock %}
+            </div>
+            <div class="col-3 order-last" id="funfact">
+                <section class="py-5">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col">
+
+                                <!-- CUSTOM BLOCKQUOTE -->
+                                <blockquote class="blockquote blockquote-custom bg-white p-3 shadow rounded fs-6" style="text-align: justify;">
+                                    <div class="blockquote-custom-icon bg-info shadow-sm"><i
+                                            class="fa fa-quote-left text-white"></i></div>
+                                    <p class="mb-0 mt-2 font-italic">{{ g.fun_fact.text }}<a href="/chatbot"
+                                            class="text-info"> @RielBot</a>."</p>
+                                    <footer class="blockquote-footer pt-4 mt-4 border-top">Fun fact of
+                                        <cite title="Source Title">{{ g.fun_fact.timestamp.strftime('%a %d %B %Y')
+                                            }}</cite>
+                                    </footer>
+                                </blockquote><!-- END -->
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

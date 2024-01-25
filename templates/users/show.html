@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} User {{ g.user.username }} {% endblock %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <h1 class="text-light">Edit user {{ g.user.username }}</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+            <div class="mb-3">
+                {{ field.label(class_="form-label text-light") }}
+                {{ field(class_="form-control") }}
+                {% if field.errors %}
+                    <ul>
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <button class="btn btn-success btn-lg">Save</button>
+        <a class="btn btn-danger btn-lg" href="/chatbot">Cancel</a>
+        <a class="btn btn-warning btn-lg" href="/users/{{g.user.id}}/delete">Delete User</a>
+    </form>
+    {% if message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endif %}
+</div>
+{% endblock %}

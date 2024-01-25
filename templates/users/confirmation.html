@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} User {{ g.user.username }} {% endblock %}
+
+{% block content %}
+<div class="container-fluid h-100">
+    <h1 class="text-light">Delete user {{ g.user.username }}</h1>
+    <form method="post">
+        <input type="hidden" name="confirmation" value="yes">
+        <button class="btn btn-primary btn-block btn-lg" type="submit">Yes, delete</button>
+        <a href="{{ url_for('users_show', user_id=user_id) }}" class="btn btn-danger btn-block btn-lg">Cancel</a>
+    </form>
+
+    {% if message in get_flashed_messages() %}
+    <p>{{ message }}</p>
+    {% endif %}
+</div>
+{% endblock %}
