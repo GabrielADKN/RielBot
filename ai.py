@@ -6,7 +6,7 @@ load_dotenv()  # Load environment variables from .env file
 api_key = os.environ.get("GOOGLE_API_KEY")  # Use get() for safety
 
 
-def recherche_ia_google(question):
+def search_ia_google(question):
     if api_key is None:
         raise ValueError("GOOGLE_API_KEY is not set in environment variables")
 
@@ -35,6 +35,3 @@ def recherche_ia_google(question):
 
     except Exception as e:
         return "There was an error with the request. Please try again later."
-
-
-# print(recherche_ia_google("comment cultiver le riz"))

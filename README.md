@@ -24,6 +24,7 @@ This application is an interactive chatbot that allows users to ask questions an
 3. **Interacting with the Chatbot**: Users can interact with the chatbot by sending messages through the chat form.
 4. **Receiving Responses**: Users receive a response from the chatbot after sending a message.
 5. **Logout**: Users can log out of the application at any time.
+6. **Advanced Mode**: This mode allows the bot to add more informations in his answer like some links and other questions sections.
 
 ## RielBot API
     # API Documentation: /api/rielbot Endpoint
